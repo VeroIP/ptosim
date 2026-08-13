@@ -1,1 +1,104 @@
 @import "tailwindcss";
+
+/*
+ * Design tokens — the single source of truth for color, type, spacing, radius,
+ * and shadow. Referenced by ViewComponents via var(--token-name). Change a
+ * value here and every component picks it up.
+ */
+@theme {
+  --font-display: "Jost", Futura, "Century Gothic", sans-serif;
+  --font-sans: "IBM Plex Sans", system-ui, sans-serif;
+  --font-mono: "IBM Plex Mono", ui-monospace, monospace;
+
+  --color-bg: oklch(0.982 0.004 250);
+  --color-bg-muted: oklch(0.965 0.005 250);
+  --color-bg-card: #ffffff;
+  --color-bg-subtle: oklch(0.975 0.004 250);
+
+  --color-ink: oklch(0.22 0.015 250);
+  --color-ink-strong: oklch(0.28 0.015 250);
+  --color-ink-body: oklch(0.3 0.015 250);
+  --color-ink-muted: oklch(0.42 0.012 250);
+  --color-ink-soft: oklch(0.48 0.012 250);
+  --color-ink-softer: oklch(0.55 0.012 250);
+  --color-ink-faint: oklch(0.6 0.012 250);
+
+  --color-accent: oklch(0.5 0.13 250);
+  --color-accent-strong: oklch(0.4 0.13 250);
+  --color-accent-tint: oklch(0.93 0.006 250);
+
+  --color-primary: oklch(0.28 0.03 250);
+  --color-primary-hover: oklch(0.2 0.03 250);
+
+  --color-dark-bg: oklch(0.24 0.025 255);
+  --color-dark-fg: oklch(0.96 0.006 250);
+  --color-dark-fg-muted: oklch(0.8 0.01 250);
+  --color-dark-fg-soft: oklch(0.72 0.01 250);
+  --color-dark-fg-faint: oklch(0.68 0.01 250);
+  --color-dark-accent: oklch(0.72 0.1 250);
+
+  --color-success: oklch(0.45 0.12 150);
+  --color-success-light: oklch(0.75 0.11 150);
+  --color-success-lighter: oklch(0.78 0.12 150);
+
+  --color-border: oklch(0.22 0.015 250 / 0.1);
+  --color-border-soft: oklch(0.22 0.015 250 / 0.08);
+  --color-border-strong: oklch(0.22 0.015 250 / 0.2);
+  --color-border-dark: oklch(0.96 0.006 250 / 0.14);
+  --color-border-dark-soft: oklch(0.96 0.006 250 / 0.1);
+
+  --shadow-card: 0 24px 60px -32px oklch(0.22 0.06 250 / 0.35), 0 1px 2px oklch(0.22 0.06 250 / 0.06);
+  --shadow-card-soft: 0 24px 60px -34px oklch(0.22 0.06 250 / 0.32);
+
+  --radius-sm: 3px;
+  --radius-md: 6px;
+  --radius-lg: 7px;
+  --radius-xl: 12px;
+}
+
+@layer base {
+  html { font-family: var(--font-sans); }
+  body {
+    margin: 0;
+    background: var(--color-bg);
+    color: var(--color-ink);
+    -webkit-font-smoothing: antialiased;
+  }
+  a { color: var(--color-accent); text-decoration: none; }
+  a:hover { color: var(--color-accent-strong); }
+}
+
+@layer components {
+  /* Layout shell */
+  .ps-container { max-width: 1180px; margin: 0 auto; padding-left: 32px; padding-right: 32px; }
+
+  /* Typography */
+  .ps-display { font-family: var(--font-display); font-weight: 700; letter-spacing: -0.035em; line-height: 1.04; text-wrap: balance; }
+  .ps-h2 { font-family: var(--font-display); font-weight: 600; font-size: 41px; line-height: 1.08; letter-spacing: -0.025em; }
+  .ps-h3 { font-size: 17px; font-weight: 600; letter-spacing: -0.005em; }
+  .ps-eyebrow { font-family: var(--font-mono); font-size: 11px; letter-spacing: 0.15em; text-transform: uppercase; color: var(--color-accent); }
+  .ps-mono { font-family: var(--font-mono); }
+  .ps-lede { font-size: 18px; line-height: 1.55; color: var(--color-ink-muted); text-wrap: pretty; }
+
+  /* Buttons */
+  .ps-btn { display: inline-flex; align-items: center; justify-content: center; font-weight: 500; border-radius: var(--radius-lg); transition: background-color 120ms ease, color 120ms ease; }
+  .ps-btn-md { font-size: 15px; padding: 14px 26px; }
+  .ps-btn-sm { font-size: 14px; padding: 10px 18px; border-radius: var(--radius-md); }
+  .ps-btn-primary { color: #fff; background: var(--color-primary); }
+  .ps-btn-primary:hover { color: #fff; background: var(--color-primary-hover); }
+  .ps-btn-ghost { color: var(--color-primary); background: transparent; border: 1px solid var(--color-border-strong); padding: 13px 22px; }
+  .ps-btn-ghost:hover { background: oklch(0.22 0.015 250 / 0.04); color: var(--color-primary); }
+  .ps-btn-invert { color: var(--color-ink); background: var(--color-dark-fg); }
+  .ps-btn-invert:hover { background: #fff; color: var(--color-ink); }
+  .ps-btn-dark-ghost { color: var(--color-dark-fg); background: transparent; border: 1px solid oklch(0.96 0.006 250 / 0.28); padding: 13px 22px; }
+  .ps-btn-dark-ghost:hover { background: oklch(0.96 0.006 250 / 0.08); color: var(--color-dark-fg); }
+
+  /* Card */
+  .ps-card { border: 1px solid var(--color-border); border-radius: var(--radius-xl); background: var(--color-bg-card); overflow: hidden; }
+  .ps-card-elevated { box-shadow: var(--shadow-card); }
+  .ps-card-soft { box-shadow: var(--shadow-card-soft); }
+
+  /* Section spacing */
+  .ps-section { padding-top: 96px; padding-bottom: 88px; }
+  .ps-section-lg { padding-top: 96px; padding-bottom: 100px; }
+}

@@ -1,0 +1,10 @@
+<section style="border-top:1px solid var(--color-border-soft);border-bottom:1px solid var(--color-border-soft);background:var(--color-bg-muted);">
+  <div class="ps-container" style="padding-top:34px;padding-bottom:34px;display:grid;grid-template-columns:repeat(4,1fr);gap:32px;align-items:start;">
+    <% STATS.each do |s| %>
+      <%= render Ui::StatComponent.new(figure: s[:figure], label: s[:label], size: :lg) %>
+    <% end %>
+  </div>
+  <div class="ps-container ps-mono" style="padding-bottom:18px;font-size:10px;letter-spacing:0.06em;color:var(--color-ink-faint);">
+    PLACEHOLDER FIGURES — REPLACE WITH YOUR OWN
+  </div>
+</section>

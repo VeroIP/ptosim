@@ -1,0 +1,39 @@
+<section class="ps-container" style="padding-top:88px;padding-bottom:76px;display:grid;grid-template-columns:1.02fr 0.98fr;gap:64px;align-items:center;">
+  <div>
+    <%= render Ui::EyebrowComponent.new(tone: :accent).with_content("Prosecution simulation") %>
+    <h1 class="ps-display" style="font-size:60px;margin:22px 0 24px;">
+      Know the outcome<br>before the first<br>Office action.
+    </h1>
+    <p class="ps-lede" style="margin:0 0 34px;max-width:44ch;">
+      Upload a specification and a claim set. PTO Sim runs full rounds of examination — rejection, response, amendment — until the case resolves, then shows you every path it took to get there.
+    </p>
+    <div style="display:flex;gap:12px;align-items:center;flex-wrap:wrap;">
+      <%= render Ui::ButtonComponent.new(href: "#demo", variant: :primary).with_content("Book a demo") %>
+      <%= render Ui::ButtonComponent.new(href: "#rounds", variant: :ghost).with_content("See a simulation") %>
+    </div>
+    <div style="margin-top:30px;font-size:13px;color:var(--color-ink-softer);">
+      Annual platform license · per-simulation pricing · no data used for training
+    </div>
+  </div>
+
+  <div class="ps-card ps-card-elevated">
+    <div style="display:flex;align-items:center;gap:10px;padding:13px 18px;border-bottom:1px solid var(--color-border-soft);background:var(--color-bg-subtle);">
+      <span class="ps-mono" style="font-size:11.5px;color:var(--color-ink-soft);">18/994,207 — Adaptive Beamforming</span>
+      <span class="ps-mono" style="margin-left:auto;font-size:10.5px;letter-spacing:0.08em;text-transform:uppercase;color:var(--color-success);">Resolved</span>
+    </div>
+    <div style="padding:20px 18px 8px;display:flex;flex-direction:column;gap:2px;">
+      <% ROWS.each do |r| %>
+        <div style="display:grid;grid-template-columns:52px 1fr auto;align-items:center;gap:14px;padding:11px 8px;border-radius:var(--radius-md);">
+          <span class="ps-mono" style="font-size:11px;color:var(--color-ink-faint);"><%= r[:tag] %></span>
+          <span style="font-size:13.5px;color:var(--color-ink-body);"><%= r[:label] %></span>
+          <span class="ps-mono" style="font-size:12px;color:var(--color-accent);"><%= r[:val] %></span>
+        </div>
+      <% end %>
+    </div>
+    <div style="padding:16px 26px 22px;border-top:1px solid var(--color-border-soft);margin-top:12px;display:flex;gap:28px;">
+      <% SUMMARY.each do |s| %>
+        <%= render Ui::StatComponent.new(figure: s[:figure], label: s[:label], size: :sm) %>
+      <% end %>
+    </div>
+  </div>
+</section>

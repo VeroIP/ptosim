@@ -1,0 +1,9 @@
+<div style="<%= align_style %>">
+  <% if @eyebrow %>
+    <%= render Ui::EyebrowComponent.new(tone: eyebrow_tone, class: "ps-mb-eyebrow").with_content(@eyebrow) %>
+  <% end %>
+  <h2 class="ps-h2" style="margin:18px 0 0;<%= title_color %>"><%= @title %></h2>
+  <% if @lede %>
+    <p class="ps-lede" style="margin:18px 0 0;<%= lede_color %>font-size:17px;"><%= @lede %></p>
+  <% end %>
+</div>

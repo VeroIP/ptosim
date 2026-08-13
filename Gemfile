@@ -16,6 +16,8 @@ gem "turbo-rails"
 gem "stimulus-rails"
 # Use Tailwind CSS [https://github.com/rails/tailwindcss-rails]
 gem "tailwindcss-rails"
+# ViewComponent for encapsulated, reusable view components [https://viewcomponent.org]
+gem "view_component"
 # Build JSON APIs with ease [https://github.com/rails/jbuilder]
 gem "jbuilder"
 
@@ -59,6 +61,9 @@ end
 group :development do
   # Use console on exceptions pages [https://github.com/rails/web-console]
   gem "web-console"
+
+  # Browse and preview ViewComponents at /lookbook [https://lookbook.build]
+  gem "lookbook"
 end
 
 group :test do
