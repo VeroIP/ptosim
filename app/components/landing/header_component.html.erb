@@ -1,10 +1,10 @@
 <header style="position:sticky;top:0;z-index:20;backdrop-filter:blur(12px);background:oklch(0.982 0.004 250 / 0.86);border-bottom:1px solid var(--color-border-soft);">
-  <div class="ps-container" style="height:68px;display:flex;align-items:center;gap:36px;">
+  <div class="ps-container" style="height:68px;display:flex;align-items:center;gap:16px;">
     <div style="display:flex;align-items:baseline;gap:9px;margin-right:auto;">
       <span style="font-family:var(--font-display);font-weight:700;font-size:22px;letter-spacing:-0.02em;">PTO&nbsp;Sim</span>
       <%= render Ui::BadgeComponent.new(label: "Beta") %>
     </div>
-    <nav style="display:flex;gap:28px;font-size:14px;color:var(--color-ink-muted);">
+    <nav class="ps-desktop-only" style="display:flex;gap:28px;font-size:14px;color:var(--color-ink-muted);">
       <% NAV.each do |item| %>
         <a href="<%= item[:href] %>" style="color:inherit;"><%= item[:label] %></a>
       <% end %>

@@ -54,6 +54,12 @@
   --radius-md: 6px;
   --radius-lg: 7px;
   --radius-xl: 12px;
+
+  /* Breakpoints — CSS custom properties can't be used in @media queries directly,
+     but we document them here for reference and use the same values in @media below. */
+  --bp-sm: 640px;
+  --bp-md: 768px;
+  --bp-lg: 1024px;
 }
 
 @layer base {
@@ -69,18 +75,47 @@
 }
 
 @layer components {
-  /* Layout shell */
-  .ps-container { max-width: 1180px; margin: 0 auto; padding-left: 32px; padding-right: 32px; }
+  /* ---------- Layout shell ---------- */
+  .ps-container {
+    max-width: 1180px;
+    margin: 0 auto;
+    padding-left: clamp(20px, 4vw, 32px);
+    padding-right: clamp(20px, 4vw, 32px);
+  }
 
-  /* Typography */
-  .ps-display { font-family: var(--font-display); font-weight: 700; letter-spacing: -0.035em; line-height: 1.04; text-wrap: balance; }
-  .ps-h2 { font-family: var(--font-display); font-weight: 600; font-size: 41px; line-height: 1.08; letter-spacing: -0.025em; }
+  .ps-section    { padding-top: clamp(56px, 8vw, 96px); padding-bottom: clamp(52px, 7vw, 88px); }
+  .ps-section-lg { padding-top: clamp(64px, 9vw, 96px); padding-bottom: clamp(64px, 9vw, 100px); }
+
+  /* ---------- Typography ---------- */
+  .ps-display {
+    font-family: var(--font-display);
+    font-weight: 700;
+    letter-spacing: -0.035em;
+    line-height: 1.04;
+    text-wrap: balance;
+  }
+  .ps-display-xl { font-size: clamp(40px, 8vw, 72px); }
+  .ps-display-lg { font-size: clamp(36px, 6.5vw, 60px); line-height: 1.06; }
+  .ps-display-md { font-size: clamp(32px, 5.5vw, 50px); }
+
+  .ps-h2 {
+    font-family: var(--font-display);
+    font-weight: 600;
+    font-size: clamp(28px, 4.5vw, 41px);
+    line-height: 1.1;
+    letter-spacing: -0.025em;
+  }
   .ps-h3 { font-size: 17px; font-weight: 600; letter-spacing: -0.005em; }
   .ps-eyebrow { font-family: var(--font-mono); font-size: 11px; letter-spacing: 0.15em; text-transform: uppercase; color: var(--color-accent); }
   .ps-mono { font-family: var(--font-mono); }
-  .ps-lede { font-size: 18px; line-height: 1.55; color: var(--color-ink-muted); text-wrap: pretty; }
+  .ps-lede {
+    font-size: clamp(15px, 1.6vw, 18px);
+    line-height: 1.55;
+    color: var(--color-ink-muted);
+    text-wrap: pretty;
+  }
 
-  /* Buttons */
+  /* ---------- Buttons ---------- */
   .ps-btn { display: inline-flex; align-items: center; justify-content: center; font-weight: 500; border-radius: var(--radius-lg); transition: background-color 120ms ease, color 120ms ease; }
   .ps-btn-md { font-size: 15px; padding: 14px 26px; }
   .ps-btn-sm { font-size: 14px; padding: 10px 18px; border-radius: var(--radius-md); }
@@ -93,12 +128,73 @@
   .ps-btn-dark-ghost { color: var(--color-dark-fg); background: transparent; border: 1px solid oklch(0.96 0.006 250 / 0.28); padding: 13px 22px; }
   .ps-btn-dark-ghost:hover { background: oklch(0.96 0.006 250 / 0.08); color: var(--color-dark-fg); }
 
-  /* Card */
+  /* ---------- Card ---------- */
   .ps-card { border: 1px solid var(--color-border); border-radius: var(--radius-xl); background: var(--color-bg-card); overflow: hidden; }
   .ps-card-elevated { box-shadow: var(--shadow-card); }
   .ps-card-soft { box-shadow: var(--shadow-card-soft); }
 
-  /* Section spacing */
-  .ps-section { padding-top: 96px; padding-bottom: 88px; }
-  .ps-section-lg { padding-top: 96px; padding-bottom: 100px; }
+  /* ---------- Grid utilities ----------
+     Desktop-first: full column count at ≥lg, collapse at md, single column ≤sm. */
+  .ps-grid { display: grid; }
+  .ps-grid-2 { display: grid; grid-template-columns: repeat(2, minmax(0, 1fr)); }
+  .ps-grid-3 { display: grid; grid-template-columns: repeat(3, minmax(0, 1fr)); }
+  .ps-grid-4 { display: grid; grid-template-columns: repeat(4, minmax(0, 1fr)); }
+
+  /* Two-up asymmetric splits (hero, metrics) — collapse to stack on tablet down. */
+  .ps-split { display: grid; grid-template-columns: 1.02fr 0.98fr; gap: 64px; align-items: center; }
+  .ps-split-metrics { display: grid; grid-template-columns: 0.85fr 1.15fr; gap: 60px; align-items: center; }
+  .ps-split-dark    { display: grid; grid-template-columns: 1.1fr 0.9fr; gap: 56px; align-items: end; }
+
+  /* Row stacks & clusters */
+  .ps-stack   { display: flex; flex-direction: column; }
+  .ps-cluster { display: flex; flex-wrap: wrap; gap: 12px; align-items: center; }
+
+  /* Show/hide */
+  .ps-mobile-only  { display: none; }
+  .ps-desktop-only { display: initial; }
+
+  @media (max-width: 1023px) {
+    .ps-grid-4 { grid-template-columns: repeat(2, minmax(0, 1fr)); }
+    .ps-split, .ps-split-metrics, .ps-split-dark {
+      grid-template-columns: minmax(0, 1fr);
+      gap: 40px;
+      align-items: stretch;
+    }
+  }
+
+  @media (max-width: 767px) {
+    .ps-grid-2, .ps-grid-3, .ps-grid-4 { grid-template-columns: minmax(0, 1fr); }
+    .ps-mobile-only  { display: initial; }
+    .ps-desktop-only { display: none; }
+  }
+
+  /* ---------- Rounds table ----------
+     Desktop: id · headline · posture · scope in a single row.
+     Tablet:  id · headline / posture · scope in a two-row grid.
+     Mobile:  everything stacks. */
+  .ps-round-row {
+    display: grid;
+    grid-template-columns: 88px minmax(0, 1fr) 210px 110px;
+    gap: 20px;
+    align-items: center;
+  }
+  .ps-round-row .ps-round-scope { text-align: right; }
+  .ps-round-detail {
+    display: grid;
+    grid-template-columns: minmax(0, 1fr) minmax(0, 1fr);
+    gap: 28px;
+  }
+
+  @media (max-width: 1023px) {
+    .ps-round-row {
+      grid-template-columns: 60px minmax(0, 1fr) auto;
+      row-gap: 6px;
+      column-gap: 14px;
+    }
+    .ps-round-row .ps-round-posture { grid-column: 2 / -1; font-size: 12px; }
+    .ps-round-row .ps-round-scope   { grid-column: 3; grid-row: 1; }
+  }
+  @media (max-width: 639px) {
+    .ps-round-detail { grid-template-columns: minmax(0, 1fr); gap: 20px; }
+  }
 }
