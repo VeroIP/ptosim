@@ -1,0 +1,26 @@
+<% content_for :title, "Staff — Console" %>
+
+<div style="display:flex;align-items:baseline;justify-content:space-between;margin-bottom:24px;flex-wrap:wrap;gap:12px;">
+  <h1 class="ps-h2" style="margin:0;">Staff</h1>
+  <%= link_to "Invite staff", new_console_staff_path, class: "ps-btn ps-btn-sm ps-btn-primary" %>
+</div>
+
+<div class="ps-card">
+  <% if @staff.any? %>
+    <% @staff.each do |s| %>
+      <%= link_to console_staff_path(s),
+            style: "display:grid;grid-template-columns:minmax(0,1fr) auto auto;align-items:center;gap:16px;padding:14px 22px;border-bottom:1px solid var(--color-border-soft);color:var(--color-ink);" do %>
+        <div class="ps-mono" style="font-size:13.5px;"><%= s.email_address %></div>
+        <span class="ps-mono" style="font-size:11px;letter-spacing:0.08em;text-transform:uppercase;color:var(--color-ink-softer);"><%= s.role %></span>
+        <span class="ps-mono" style="font-size:11.5px;color:<%= s.invitation_pending? ? 'var(--color-accent)' : 'var(--color-ink-softer)' %>;">
+          <%= s.invitation_pending? ? "invited" : "active" %>
+        </span>
+      <% end %>
+    <% end %>
+  <% else %>
+    <div style="padding:32px 22px;text-align:center;color:var(--color-ink-soft);font-size:14px;">
+      No staff yet.
+      <%= link_to "Invite the first one →", new_console_staff_path, style: "margin-left:6px;" %>
+    </div>
+  <% end %>
+</div>

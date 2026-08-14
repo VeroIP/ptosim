@@ -22,7 +22,15 @@ gem "view_component"
 gem "jbuilder"
 
 # Use Active Model has_secure_password [https://guides.rubyonrails.org/active_model_basics.html#securepassword]
-# gem "bcrypt", "~> 3.1.7"
+gem "bcrypt", "~> 3.1.7"
+
+# TOTP (RFC 6238) for Google Authenticator / Authy-compatible 2FA
+gem "rotp", "~> 6.3"
+# QR code rendering for TOTP enrollment
+gem "rqrcode", "~> 3.1"
+
+# Request throttling for auth endpoints
+gem "rack-attack"
 
 # Windows does not include zoneinfo files, so bundle the tzinfo-data gem
 gem "tzinfo-data", platforms: %i[ windows jruby ]

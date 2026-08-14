@@ -1,0 +1,36 @@
+<% content_for :title, "New organization — Console" %>
+
+<div style="max-width:520px;">
+  <h1 class="ps-h2" style="margin:0 0 6px;">New organization</h1>
+  <p style="font-size:14px;color:var(--color-ink-soft);margin:0 0 24px;">
+    Create the tenant. You'll invite the first user next.
+  </p>
+
+  <div class="ps-card" style="padding:24px;">
+    <%= form_with model: [:console, @organization], local: true do |f| %>
+      <% if @organization.errors.any? %>
+        <div style="margin-bottom:16px;padding:10px 12px;border-radius:var(--radius-md);background:oklch(0.96 0.04 25);color:oklch(0.4 0.15 25);font-size:13px;">
+          <%= @organization.errors.full_messages.to_sentence %>
+        </div>
+      <% end %>
+
+      <div style="display:flex;flex-direction:column;gap:14px;">
+        <label style="display:flex;flex-direction:column;gap:6px;font-size:13px;color:var(--color-ink-strong);">
+          Name
+          <%= f.text_field :name, required: true, autofocus: true,
+                style: "font:inherit;padding:10px 12px;border:1px solid var(--color-border-strong);border-radius:var(--radius-md);background:#fff;" %>
+        </label>
+        <label style="display:flex;flex-direction:column;gap:6px;font-size:13px;color:var(--color-ink-strong);">
+          Slug <span style="font-weight:normal;color:var(--color-ink-softer);">(optional — derived from name)</span>
+          <%= f.text_field :slug, placeholder: "acme-ip",
+                style: "font:inherit;font-family:var(--font-mono);padding:10px 12px;border:1px solid var(--color-border-strong);border-radius:var(--radius-md);background:#fff;" %>
+        </label>
+      </div>
+
+      <div style="margin-top:22px;display:flex;gap:10px;">
+        <%= f.submit "Create organization", class: "ps-btn ps-btn-md ps-btn-primary" %>
+        <%= link_to "Cancel", console_organizations_path, class: "ps-btn ps-btn-md ps-btn-ghost" %>
+      </div>
+    <% end %>
+  </div>
+</div>

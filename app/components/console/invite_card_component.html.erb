@@ -1,0 +1,16 @@
+<div class="ps-card" style="padding:20px 22px;">
+  <div style="display:flex;align-items:center;gap:12px;margin-bottom:10px;">
+    <div class="ps-mono" style="font-size:11px;letter-spacing:0.08em;text-transform:uppercase;color:var(--color-ink-softer);">
+      Invite URL — expires <%= expires_on %>
+    </div>
+    <div style="margin-left:auto;">
+      <%= render Ui::CopyButtonComponent.new(value: @invite_url, label: "Copy", copied_label: "Copied") %>
+    </div>
+  </div>
+  <div class="ps-mono" style="font-size:13px;padding:14px 16px;background:var(--color-bg-subtle);border-radius:var(--radius-md);word-break:break-all;color:var(--color-ink-strong);">
+    <%= @invite_url %>
+  </div>
+  <p style="font-size:12.5px;color:var(--color-ink-softer);margin:12px 0 0;">
+    <%= @help_text || default_help_text %>
+  </p>
+</div>

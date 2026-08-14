@@ -1,0 +1,35 @@
+<% content_for :title, "Enroll two-factor — PTO Sim" %>
+
+<h1 class="ps-h2" style="font-size:26px;margin:0 0 6px;">Enable two-factor</h1>
+<p style="font-size:14px;color:var(--color-ink-soft);margin:0 0 20px;line-height:1.5;">
+  Scan the code with Google Authenticator, 1Password, Authy, or any TOTP app. Then enter the 6-digit code it shows.
+</p>
+
+<div style="display:flex;justify-content:center;padding:16px;background:#fff;border:1px solid var(--color-border);border-radius:var(--radius-md);margin-bottom:16px;">
+  <div class="ps-qr" style="width:220px;height:220px;">
+    <%= @qr_svg %>
+  </div>
+</div>
+
+<details style="margin-bottom:20px;font-size:13px;color:var(--color-ink-soft);">
+  <summary style="cursor:pointer;">Can't scan? Enter this secret manually</summary>
+  <div class="ps-mono" style="margin-top:8px;padding:10px 12px;background:var(--color-bg-subtle);border-radius:var(--radius-md);font-size:13px;color:var(--color-ink-strong);word-break:break-all;">
+    <%= @user.otp_secret %>
+  </div>
+</details>
+
+<%= form_with url: two_factor_enroll_path, method: :post, local: true do |f| %>
+  <label style="display:flex;flex-direction:column;gap:6px;font-size:13px;color:var(--color-ink-strong);">
+    Verification code
+    <%= f.text_field :code, inputmode: "numeric", pattern: "[0-9 ]*", autocomplete: "one-time-code", autofocus: true, required: true,
+          style: "font:inherit;font-family:var(--font-mono);letter-spacing:0.3em;text-align:center;font-size:20px;padding:12px;border:1px solid var(--color-border-strong);border-radius:var(--radius-md);background:#fff;" %>
+  </label>
+  <div style="margin-top:20px;">
+    <%= f.submit "Verify and finish", class: "ps-btn ps-btn-md ps-btn-primary", style: "width:100%;" %>
+  </div>
+<% end %>
+
+<%= button_to "Cancel and sign out", two_factor_cancel_path, method: :delete,
+      form: { style: "margin:16px 0 0;" },
+      class: "ps-btn ps-btn-sm",
+      style: "width:100%;background:transparent;color:var(--color-ink-softer);" %>

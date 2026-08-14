@@ -1,0 +1,25 @@
+<% content_for :title, "Sign in — PTO Sim" %>
+
+<h1 class="ps-h2" style="font-size:26px;margin:0 0 6px;">Sign in</h1>
+<p style="font-size:14px;color:var(--color-ink-soft);margin:0 0 24px;">
+  Enter your email and password.
+</p>
+
+<%= form_with url: request.path, local: true do |f| %>
+  <div style="display:flex;flex-direction:column;gap:14px;">
+    <label style="display:flex;flex-direction:column;gap:6px;font-size:13px;color:var(--color-ink-strong);">
+      Email address
+      <%= f.email_field :email_address, autofocus: true, autocomplete: "username",
+            style: "font:inherit;padding:10px 12px;border:1px solid var(--color-border-strong);border-radius:var(--radius-md);background:#fff;" %>
+    </label>
+    <label style="display:flex;flex-direction:column;gap:6px;font-size:13px;color:var(--color-ink-strong);">
+      Password
+      <%= f.password_field :password, autocomplete: "current-password",
+            style: "font:inherit;padding:10px 12px;border:1px solid var(--color-border-strong);border-radius:var(--radius-md);background:#fff;" %>
+    </label>
+  </div>
+
+  <div style="margin-top:24px;">
+    <%= f.submit "Sign in", class: "ps-btn ps-btn-md ps-btn-primary", style: "width:100%;" %>
+  </div>
+<% end %>

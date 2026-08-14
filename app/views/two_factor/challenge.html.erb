@@ -1,0 +1,22 @@
+<% content_for :title, "Verify — PTO Sim" %>
+
+<h1 class="ps-h2" style="font-size:26px;margin:0 0 6px;">Two-factor</h1>
+<p style="font-size:14px;color:var(--color-ink-soft);margin:0 0 22px;">
+  Enter the 6-digit code from your authenticator app.
+</p>
+
+<%= form_with url: two_factor_challenge_path, method: :post, local: true do |f| %>
+  <label style="display:flex;flex-direction:column;gap:6px;font-size:13px;color:var(--color-ink-strong);">
+    Verification code
+    <%= f.text_field :code, inputmode: "numeric", pattern: "[0-9 ]*", autocomplete: "one-time-code", autofocus: true, required: true,
+          style: "font:inherit;font-family:var(--font-mono);letter-spacing:0.3em;text-align:center;font-size:20px;padding:12px;border:1px solid var(--color-border-strong);border-radius:var(--radius-md);background:#fff;" %>
+  </label>
+  <div style="margin-top:20px;">
+    <%= f.submit "Verify", class: "ps-btn ps-btn-md ps-btn-primary", style: "width:100%;" %>
+  </div>
+<% end %>
+
+<%= button_to "Cancel and sign out", two_factor_cancel_path, method: :delete,
+      form: { style: "margin:16px 0 0;" },
+      class: "ps-btn ps-btn-sm",
+      style: "width:100%;background:transparent;color:var(--color-ink-softer);" %>

@@ -1,0 +1,22 @@
+<button type="button"
+        class="<%= classes %>"
+        aria-label="<%= @label %>"
+        data-controller="clipboard"
+        data-clipboard-text-value="<%= @value %>"
+        data-clipboard-copied-label-value="<%= @copied_label %>"
+        data-action="click->clipboard#copy">
+  <span class="ps-copy-btn-icon-copy" aria-hidden="true">
+    <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.75" stroke-linecap="round" stroke-linejoin="round">
+      <rect x="9" y="9" width="12" height="12" rx="2.5" />
+      <path d="M6 15H4.75A1.75 1.75 0 0 1 3 13.25V4.75A1.75 1.75 0 0 1 4.75 3h8.5A1.75 1.75 0 0 1 15 4.75V6" />
+    </svg>
+  </span>
+  <span class="ps-copy-btn-icon-check" aria-hidden="true">
+    <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.25" stroke-linecap="round" stroke-linejoin="round">
+      <path d="m5 12.5 5 5 9-11" />
+    </svg>
+  </span>
+  <% if @variant == :labeled %>
+    <span class="ps-copy-btn-label" data-clipboard-target="label"><%= @label %></span>
+  <% end %>
+</button>

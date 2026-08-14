@@ -1,0 +1,23 @@
+<% content_for :title, "Dashboard — PTO Sim" %>
+
+<div style="max-width:640px;">
+  <h1 class="ps-h2" style="margin:0 0 6px;">Welcome</h1>
+  <p style="font-size:14px;color:var(--color-ink-soft);margin:0 0 24px;">
+    <span class="ps-mono"><%= current_user.email_address %></span>
+    <% if current_user.organization %>
+      · <%= current_user.organization.name %>
+    <% end %>
+  </p>
+
+  <div class="ps-card" style="padding:24px;">
+    <div class="ps-mono" style="font-size:11px;letter-spacing:0.08em;text-transform:uppercase;color:var(--color-accent);margin-bottom:12px;">
+      Coming soon
+    </div>
+    <p style="font-size:15px;line-height:1.55;color:var(--color-ink-body);margin:0 0 12px;">
+      Your account is active. Simulation, docket, and reporting views are under construction.
+    </p>
+    <p style="font-size:14px;line-height:1.55;color:var(--color-ink-muted);margin:0;">
+      We'll open features here as they ship. In the meantime, hit sign out above when you're done.
+    </p>
+  </div>
+</div>

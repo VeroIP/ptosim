@@ -1,0 +1,9 @@
+<label class="ps-role-option" style="display:flex;gap:12px;align-items:flex-start;padding:14px 16px;border:1px solid var(--color-border-strong);border-radius:var(--radius-md);cursor:pointer;background:#fff;">
+  <input type="radio" name="user[role]" value="<%= role %>"
+         <%= "checked" if (@user.role.to_s == role) || (role == "sales" && @user.role.blank?) %>
+         style="margin-top:3px;flex:none;">
+  <span>
+    <span style="display:block;font-size:14px;font-weight:600;color:var(--color-ink-strong);"><%= title %></span>
+    <span style="display:block;font-size:13px;color:var(--color-ink-muted);margin-top:3px;line-height:1.45;"><%= description %></span>
+  </span>
+</label>

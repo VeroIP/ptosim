@@ -1,0 +1,42 @@
+<% content_for :title, "Invite staff — Console" %>
+
+<div style="max-width:560px;">
+  <h1 class="ps-h2" style="margin:0 0 6px;">Invite staff</h1>
+  <p style="font-size:14px;color:var(--color-ink-soft);margin:0 0 24px;">
+    Staff users sign into the console. They'll set their own password and enroll two-factor on first visit.
+  </p>
+
+  <div class="ps-card" style="padding:24px;">
+    <%= form_with url: console_staff_index_path, local: true do |f| %>
+      <% if @user.errors.any? %>
+        <div style="margin-bottom:16px;padding:10px 12px;border-radius:var(--radius-md);background:oklch(0.96 0.04 25);color:oklch(0.4 0.15 25);font-size:13px;">
+          <%= @user.errors.full_messages.to_sentence %>
+        </div>
+      <% end %>
+
+      <label style="display:flex;flex-direction:column;gap:6px;font-size:13px;color:var(--color-ink-strong);margin-bottom:20px;">
+        Email address
+        <%= f.email_field :email_address, value: @user.email_address, required: true, autofocus: true, autocomplete: "off",
+              name: "user[email_address]",
+              style: "font:inherit;padding:10px 12px;border:1px solid var(--color-border-strong);border-radius:var(--radius-md);background:#fff;" %>
+      </label>
+
+      <fieldset style="border:none;padding:0;margin:0 0 22px;">
+        <legend style="font-size:13px;color:var(--color-ink-strong);padding:0;margin-bottom:8px;">Role</legend>
+        <div class="ps-stack" style="gap:8px;">
+          <%= render "role_option", role: "admin",
+                title: "Admin",
+                description: "Full console access. Can invite staff, create organizations, and manage members." %>
+          <%= render "role_option", role: "sales",
+                title: "Sales",
+                description: "Console access, without staff-management controls. (Feature-gated as sales views ship.)" %>
+        </div>
+      </fieldset>
+
+      <div style="display:flex;gap:10px;">
+        <%= f.submit "Generate invite", class: "ps-btn ps-btn-md ps-btn-primary" %>
+        <%= link_to "Cancel", console_staff_index_path, class: "ps-btn ps-btn-md ps-btn-ghost" %>
+      </div>
+    <% end %>
+  </div>
+</div>

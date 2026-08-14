@@ -1,0 +1,53 @@
+<% content_for :title, "Dashboard — Console" %>
+
+<div style="display:flex;align-items:baseline;justify-content:space-between;margin-bottom:24px;flex-wrap:wrap;gap:12px;">
+  <h1 class="ps-h2" style="margin:0;">Dashboard</h1>
+  <span class="ps-mono" style="font-size:11px;letter-spacing:0.08em;color:var(--color-ink-softer);text-transform:uppercase;">
+    Signed in as <%= current_user.role %>
+  </span>
+</div>
+
+<div class="ps-grid-3" style="gap:16px;margin-bottom:32px;">
+  <div class="ps-card" style="padding:20px 22px;">
+    <div class="ps-mono" style="font-size:10.5px;letter-spacing:0.1em;text-transform:uppercase;color:var(--color-ink-softer);margin-bottom:8px;">Organizations</div>
+    <div style="font-family:var(--font-display);font-weight:600;font-size:32px;line-height:1;"><%= @org_count %></div>
+  </div>
+  <div class="ps-card" style="padding:20px 22px;">
+    <div class="ps-mono" style="font-size:10.5px;letter-spacing:0.1em;text-transform:uppercase;color:var(--color-ink-softer);margin-bottom:8px;">Users</div>
+    <div style="font-family:var(--font-display);font-weight:600;font-size:32px;line-height:1;"><%= @user_count %></div>
+  </div>
+  <%= link_to console_staff_index_path, style: "color:inherit;text-decoration:none;" do %>
+    <div class="ps-card" style="padding:20px 22px;">
+      <div class="ps-mono" style="font-size:10.5px;letter-spacing:0.1em;text-transform:uppercase;color:var(--color-ink-softer);margin-bottom:8px;">Staff</div>
+      <div style="font-family:var(--font-display);font-weight:600;font-size:32px;line-height:1;"><%= @staff_count %></div>
+    </div>
+  <% end %>
+</div>
+
+<div class="ps-card">
+  <div style="padding:16px 22px;border-bottom:1px solid var(--color-border-soft);display:flex;align-items:center;gap:12px;">
+    <span style="font-size:14px;font-weight:600;">Recent organizations</span>
+    <%= link_to "New organization", new_console_organization_path,
+          class: "ps-btn ps-btn-sm ps-btn-primary",
+          style: "margin-left:auto;" %>
+  </div>
+  <% if @recent_orgs.any? %>
+    <div class="ps-stack">
+      <% @recent_orgs.each do |org| %>
+        <%= link_to console_organization_path(org),
+              style: "display:grid;grid-template-columns:minmax(0,1fr) auto;align-items:center;gap:16px;padding:14px 22px;border-bottom:1px solid var(--color-border-soft);color:var(--color-ink);" do %>
+          <div>
+            <div style="font-size:14px;font-weight:500;"><%= org.name %></div>
+            <div class="ps-mono" style="font-size:11.5px;color:var(--color-ink-softer);margin-top:2px;"><%= org.slug %></div>
+          </div>
+          <span class="ps-mono" style="font-size:11.5px;color:var(--color-ink-softer);"><%= org.users.count %> user<%= "s" unless org.users.count == 1 %></span>
+        <% end %>
+      <% end %>
+    </div>
+  <% else %>
+    <div style="padding:32px 22px;text-align:center;color:var(--color-ink-soft);font-size:14px;">
+      No organizations yet.
+      <%= link_to "Create the first one →", new_console_organization_path, style: "margin-left:6px;" %>
+    </div>
+  <% end %>
+</div>

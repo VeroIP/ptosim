@@ -1,0 +1,31 @@
+<% content_for :title, "Set your password — PTO Sim" %>
+
+<h1 class="ps-h2" style="font-size:26px;margin:0 0 6px;">Welcome to PTO Sim</h1>
+<p style="font-size:14px;color:var(--color-ink-soft);margin:0 0 22px;">
+  Setting up <span class="ps-mono" style="color:var(--color-ink);"><%= @user.email_address %></span>. Pick a password of at least 12 characters.
+</p>
+
+<%= form_with url: invitation_path(@user.invite_token), method: :patch, local: true do |f| %>
+  <div style="display:flex;flex-direction:column;gap:14px;">
+    <label style="display:flex;flex-direction:column;gap:6px;font-size:13px;color:var(--color-ink-strong);">
+      New password
+      <%= f.password_field :password, minlength: 12, required: true, autocomplete: "new-password", autofocus: true,
+            style: "font:inherit;padding:10px 12px;border:1px solid var(--color-border-strong);border-radius:var(--radius-md);background:#fff;" %>
+    </label>
+    <label style="display:flex;flex-direction:column;gap:6px;font-size:13px;color:var(--color-ink-strong);">
+      Confirm password
+      <%= f.password_field :password_confirmation, minlength: 12, required: true, autocomplete: "new-password",
+            style: "font:inherit;padding:10px 12px;border:1px solid var(--color-border-strong);border-radius:var(--radius-md);background:#fff;" %>
+    </label>
+  </div>
+
+  <div style="margin-top:24px;">
+    <%= f.submit "Set password and continue", class: "ps-btn ps-btn-md ps-btn-primary", style: "width:100%;" %>
+  </div>
+
+  <% if @user.two_factor_required? %>
+    <p style="margin-top:18px;font-size:12.5px;color:var(--color-ink-softer);text-align:center;">
+      Next step: enroll two-factor authentication with your authenticator app.
+    </p>
+  <% end %>
+<% end %>

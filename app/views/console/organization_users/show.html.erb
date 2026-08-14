@@ -1,0 +1,33 @@
+<% content_for :title, "#{@user.email_address} — Console" %>
+
+<div style="max-width:640px;">
+  <div style="display:flex;align-items:baseline;gap:12px;flex-wrap:wrap;margin-bottom:6px;">
+    <h1 class="ps-h2" style="margin:0;"><%= @user.email_address %></h1>
+    <span class="ps-mono" style="font-size:11px;letter-spacing:0.08em;text-transform:uppercase;color:<%= @user.invitation_pending? ? 'var(--color-accent)' : 'var(--color-ink-softer)' %>;">
+      <%= @user.invitation_pending? ? "invited" : "active" %>
+    </span>
+  </div>
+  <p style="font-size:14px;color:var(--color-ink-soft);margin:0 0 24px;">
+    <%= link_to @organization.name, console_organization_path(@organization) %>
+    · <%= @user.role %>
+  </p>
+
+  <% if @invite_url %>
+    <%= render Console::InviteCardComponent.new(user: @user, invite_url: @invite_url) %>
+  <% else %>
+    <div class="ps-card" style="padding:20px 22px;">
+      <p style="font-size:14px;color:var(--color-ink-body);margin:0;">
+        This user accepted their invitation
+        <%= "on #{@user.invite_accepted_at.to_date.iso8601}" if @user.invite_accepted_at %>
+        and has full access.
+      </p>
+    </div>
+  <% end %>
+
+  <div style="margin-top:20px;display:flex;gap:10px;flex-wrap:wrap;">
+    <%= link_to "Back to #{@organization.name}", console_organization_path(@organization),
+          class: "ps-btn ps-btn-md ps-btn-primary" %>
+    <%= link_to "Invite another", new_console_organization_user_path(@organization),
+          class: "ps-btn ps-btn-md ps-btn-ghost" %>
+  </div>
+</div>

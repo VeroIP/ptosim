@@ -16,6 +16,10 @@ module Ptosim
     # Common ones are `templates`, `generators`, or `middleware`, for example.
     config.autoload_lib(ignore: %w[assets tasks])
 
+    # Whether admin/sales users must enroll TOTP and pass a challenge on each
+    # sign-in. On by default; development.rb turns it off unless REQUIRE_2FA=true.
+    config.require_two_factor = true
+
     # Configuration for the application, engines, and railties goes here.
     #
     # These settings can be overridden in specific environments using the files

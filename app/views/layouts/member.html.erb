@@ -1,0 +1,49 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <title><%= content_for(:title) || "Dashboard — PTO Sim" %></title>
+    <meta name="viewport" content="width=device-width,initial-scale=1">
+    <meta name="robots" content="noindex,nofollow">
+    <%= csrf_meta_tags %>
+    <%= csp_meta_tag %>
+
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Jost:wght@400;500;600;700&family=IBM+Plex+Sans:wght@400;500;600&family=IBM+Plex+Mono:wght@400;500&display=swap" rel="stylesheet">
+
+    <%= stylesheet_link_tag :app, "data-turbo-track": "reload" %>
+    <%= javascript_importmap_tags %>
+  </head>
+
+  <body style="background:var(--color-bg-muted);min-height:100vh;">
+    <header style="background:var(--color-bg-card);border-bottom:1px solid var(--color-border-soft);">
+      <div class="ps-container" style="height:64px;display:flex;align-items:center;gap:16px;">
+        <a href="<%= dashboard_path %>" style="display:flex;align-items:baseline;gap:9px;margin-right:auto;color:var(--color-ink);">
+          <span style="font-family:var(--font-display);font-weight:700;font-size:20px;letter-spacing:-0.02em;">PTO&nbsp;Sim</span>
+        </a>
+        <span class="ps-mono ps-desktop-only" style="font-size:12px;color:var(--color-ink-softer);">
+          <%= current_user.email_address %>
+        </span>
+        <%= button_to "Sign out", logout_path, method: :delete,
+              form: { style: "margin:0;" },
+              class: "ps-btn ps-btn-sm ps-btn-ghost",
+              style: "background:transparent;border:1px solid var(--color-border-strong);color:var(--color-ink-strong);" %>
+      </div>
+    </header>
+
+    <main class="ps-container" style="padding-top:32px;padding-bottom:64px;">
+      <% if flash[:alert] %>
+        <div style="margin-bottom:20px;padding:12px 14px;border-radius:var(--radius-md);background:oklch(0.96 0.04 25);color:oklch(0.4 0.15 25);font-size:14px;">
+          <%= flash[:alert] %>
+        </div>
+      <% end %>
+      <% if flash[:notice] %>
+        <div style="margin-bottom:20px;padding:12px 14px;border-radius:var(--radius-md);background:oklch(0.95 0.05 150);color:oklch(0.35 0.12 150);font-size:14px;">
+          <%= flash[:notice] %>
+        </div>
+      <% end %>
+
+      <%= yield %>
+    </main>
+  </body>
+</html>

@@ -168,6 +168,57 @@
     .ps-desktop-only { display: none; }
   }
 
+  /* ---------- Copy button ---------- */
+  .ps-copy-btn {
+    display: inline-flex;
+    align-items: center;
+    gap: 6px;
+    font-family: var(--font-sans);
+    font-weight: 500;
+    color: var(--color-ink-strong);
+    background: var(--color-bg-card);
+    border: 1px solid var(--color-border-strong);
+    border-radius: var(--radius-md);
+    cursor: pointer;
+    transition: background-color 120ms ease, color 120ms ease, border-color 120ms ease;
+    -webkit-appearance: none;
+    appearance: none;
+  }
+  .ps-copy-btn:hover { background: var(--color-bg-subtle); }
+  .ps-copy-btn:focus-visible {
+    outline: 2px solid var(--color-accent);
+    outline-offset: 2px;
+  }
+  .ps-copy-btn-sm { font-size: 12.5px; padding: 6px 10px; }
+  .ps-copy-btn-md { font-size: 14px;   padding: 8px 14px; }
+
+  .ps-copy-btn svg { width: 14px; height: 14px; display: block; }
+  .ps-copy-btn-md svg { width: 16px; height: 16px; }
+
+  /* Icon-only variant: square, no label */
+  .ps-copy-btn-icon { padding: 6px; gap: 0; }
+  .ps-copy-btn-icon.ps-copy-btn-md { padding: 8px; }
+
+  /* Swap icons based on copied state */
+  .ps-copy-btn .ps-copy-btn-icon-check,
+  .ps-copy-btn-copied .ps-copy-btn-icon-copy {
+    display: none;
+  }
+  .ps-copy-btn-copied .ps-copy-btn-icon-check { display: inline-flex; }
+
+  /* Copied confirmation styling */
+  .ps-copy-btn-copied {
+    color: var(--color-success);
+    border-color: color-mix(in oklch, var(--color-success) 40%, var(--color-border-strong));
+    background: color-mix(in oklch, var(--color-success) 8%, var(--color-bg-card));
+  }
+
+  /* ---------- QR code ----------
+     RQRCode renders an SVG with intrinsic width/height. Force it to fill
+     the parent so we can size the container instead. */
+  .ps-qr { display: block; }
+  .ps-qr svg { display: block; width: 100%; height: 100%; }
+
   /* ---------- Rounds table ----------
      Desktop: id · headline · posture · scope in a single row.
      Tablet:  id · headline / posture · scope in a two-row grid.
