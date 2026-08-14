@@ -81,7 +81,7 @@ module Authentication
   # ---- Return-to routing -------------------------------------------------
 
   def store_return_location
-    return unless request.get?
+    return unless request.get? || request.head?
     return if request.path.start_with?("/console/sign_in", "/console/two_factor", "/invitations", "/login")
     session[:return_to] = request.fullpath
   end

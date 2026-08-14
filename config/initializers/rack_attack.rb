@@ -33,7 +33,7 @@ class Rack::Attack
     [
       429,
       { "Content-Type" => "text/plain", "Retry-After" => retry_after.to_s },
-      ["Too many requests. Try again in a moment.\n"]
+      [ "Too many requests. Try again in a moment.\n" ]
     ]
   end
 end

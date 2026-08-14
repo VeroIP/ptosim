@@ -5,7 +5,7 @@ module Console
     ALLOWED_ROLES = %w[admin sales].freeze
 
     def index
-      @staff = User.where(role: [User.roles[:admin], User.roles[:sales]]).order(:role, :email_address)
+      @staff = User.where(role: [ User.roles[:admin], User.roles[:sales] ]).order(:role, :email_address)
     end
 
     def new
@@ -35,7 +35,7 @@ module Console
     end
 
     def show
-      @user = User.where(role: [User.roles[:admin], User.roles[:sales]]).find(params[:id])
+      @user = User.where(role: [ User.roles[:admin], User.roles[:sales] ]).find(params[:id])
       @invite_url = build_invite_url(@user) if @user.invitation_pending?
     end
 
